@@ -6,7 +6,7 @@ import { ValideURLConvert } from '../utils/ValidURLConvert'
 // import AddToCartButton from './AddToCartButton'
 
 const Cardproduct = ({data}) => {
-    const url = `/product/${ValideURLConvert(data.name)}-${data._id}`
+    const url = `/Product/${ValideURLConvert(data.name)}-${data._id}`
   
   return (
     <Link to={url} className='border py-2 lg:p-4 grid gap-1 lg:gap-3 min-w-36 lg:min-w-52 rounded cursor-pointer bg-white' >

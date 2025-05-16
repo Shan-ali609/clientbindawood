@@ -93,6 +93,10 @@ const SummaryApi = {
         url : '/api/product/categoryandsubCategorywise-product',
         method : 'post'
     },
+    get_product_detail : {
+        url : '/api/product/get-product-details',
+        method : 'post'
+    },
 
 
     

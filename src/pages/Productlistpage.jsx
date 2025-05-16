@@ -56,35 +56,34 @@ const Productlistpage = () => {
     fetchProductdata()
   }, [params])
 
-  useEffect(() => {
-    if (!categoryId) return;
+    useEffect(() => {
+  const sub = AllSubCategory.filter(s => {
+    // Check if s.Category contains a category with matching _id
+    return s.Category?.some(el => el._id === categoryId);
+  });
 
-    const filtered = AllSubCategory.filter(sub =>
-      Array.isArray(sub.category)
-        ? sub.Category.some(cat => cat._id === categoryId)
-        : sub.Category === categoryId // for single ID format
-    );
+  console.log('Filtered SubCategories:', sub);
+  setDisplaySubCategory(sub);
+}, [params, AllSubCategory, categoryId]);
 
-    setDisplaySubCategory(filtered);
-  }, [categoryId, AllSubCategory]);
 
   console.log('AllSubCategory', AllSubCategory)
   return (
     <section className=''>
       <div className='container mx-auto grid grid-cols-[90px,1fr] md:grid-cols-[200px,1fr] lg:grid-cols-[280px,1fr]'>
         {/* Sidebar Subcategory */}
-        <div className='min-h-[88vh] max-h-[88vh] overflow-y-auto grid gap-1 shadow-md scrollbarCustom bg-white py-2'>
+        <div className=' bg-white '>
           {DisplaySubCatory.map((s, index) => {
-            // const link = `/${s?.category[0]?.name}-${s?.category[0]?._id}/${s.name}-${s._id}`
+            const link = `/${s?.Category[0]?.name}-${s?.Category[0]?._id}/${s.name}-${s._id}`
             return (
-              // <Link
-              //   key={s._id}
-              //   to={link}
-              //   className={`w-full p-2 lg:flex items-center lg:gap-4 border-b hover:bg-green-100 cursor-pointer
-              //     ${subcategoryId === s._id ? 'bg-green-100' : ''}`}
-              // >
-              <div> 
-                <div className='w-fit max-w-28 mx-auto lg:mx-0 bg-white rounded'>
+              <Link
+                key={s._id}
+                to={link}
+                className={`w-full p-2 lg:flex items-center lg:gap-4 border-b hover:bg-green-100 cursor-pointer
+                  ${subcategoryId === s._id ? 'bg-green-100' : ''}`}
+              >
+              <div className=' md:flex items-center gap-2  py-5 md:py-0  '> 
+                <div className='w-fit max-w-28  mx-auto lg:mx-0 bg-white rounded'>
                   <img
                     src={s.image}
                     alt='subCategory'
@@ -95,7 +94,7 @@ const Productlistpage = () => {
                   {s.name}
                 </p>
                 </div>
-              // </Link>
+               </Link>
             )
           })}
         </div>
